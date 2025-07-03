@@ -5,15 +5,15 @@ import uvicorn
 
 # Define your custom news URLs
 national_urls = [
-    "https://timesofindia.indiatimes.com/india/modi-speech-today-live-updates/...",
-    "https://www.hindustantimes.com/india-news/...",
-    "https://www.thehindu.com/news/national/..."
+    "https://timesofindia.indiatimes.com/",
+    "https://www.hindustantimes.com/",
+    "https://www.thehindu.com/"
 ]
 
 international_urls = [
-    "https://www.bbc.com/news/world",
-    "https://edition.cnn.com/world",
-    "https://www.reuters.com/world/"
+    "https://www.bbc.com/",
+    "https://edition.cnn.com/",
+    "https://www.reuters.com/"
 ]
 
 app = FastAPI()
