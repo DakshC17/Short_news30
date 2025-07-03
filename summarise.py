@@ -9,13 +9,13 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-def generate_summary(text: str, model="mixtral-8x7b-32768") -> str:
-    prompt = f"Summarize the following news article in **no more than 30 words**:\n\n{text}"
+def generate_summary(text: str, model="llama3-70b-8192") -> str:
+    prompt = f"Summarize the following news article in no more than 30 words:\n\n{text}"
 
     data = {
         "model": model,
         "messages": [
-            {"role": "system", "content": "You are a news summarizer."},
+            {"role": "system", "content": "You are a helpful assistant that summarizes news articles."},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.5

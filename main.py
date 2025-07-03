@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from scraper.fetch_news import get_news_articles
-from summariser.summarise import generate_summary
+from fetch_news import get_news_articles
+from summarise import generate_summary
 import uvicorn
 
 # Define your custom news URLs
