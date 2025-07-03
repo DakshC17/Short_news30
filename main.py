@@ -1,47 +1,61 @@
 from fastapi import FastAPI
-from fetch_news import get_news_articles
+from fastapi.middleware.cors import CORSMiddleware
 from summarise import generate_summary
-import uvicorn
-
-# Define your custom news URLs
-national_urls = [
-    "https://timesofindia.indiatimes.com/",
-    "https://www.hindustantimes.com/",
-    "https://www.thehindu.com/"
-]
-
-international_urls = [
-    "https://www.bbc.com/",
-    "https://edition.cnn.com/",
-    "https://www.reuters.com/"
-]
+from scrape import get_news_articles
+import time
+import requests
 
 app = FastAPI()
 
+# Allow CORS (for frontend access)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Retry wrapper to handle rate limits (429) with exponential backoff
+def safe_generate_summary(text, retries=3):
+    for attempt in range(retries):
+        try:
+            return generate_summary(text)
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                wait_time = 2 * (attempt + 1)
+                print(f"[Rate Limit] Retry {attempt + 1}/{retries} after {wait_time}s")
+                time.sleep(wait_time)
+            else:
+                raise
+        except Exception as e:
+            print(f"[Error in Summary] {e}")
+            break
+    return "Summary unavailable due to rate limiting or an error."
+
 @app.get("/news")
 def get_summarised_news():
-    raw_news = get_news_articles(national_urls, international_urls)
+    raw_news = get_news_articles()  # From pygooglenews version
+
     result = {"national": [], "international": []}
 
-    for item in raw_news["national"]:
-        summary = generate_summary(item["text"])
-        result["national"].append({
-            "title": item["title"],
-            "summary": summary,
-            "image": item["top_image"],
-            "url": item["url"]
-        })
+    for section in ["national", "international"]:
+        if raw_news.get(section):
+            item = raw_news[section][0]  # Take only the first news article
+            title = item.get("title", "")
+            text = item.get("text", title)  # Fallback to title if text is missing
+            url = item.get("url", "")
+            image = item.get("image", None)
 
-    for item in raw_news["international"]:
-        summary = generate_summary(item["text"])
-        result["international"].append({
-            "title": item["title"],
-            "summary": summary,
-            "image": item["top_image"],
-            "url": item["url"]
-        })
+            summary = safe_generate_summary(text)
+            result[section].append({
+                "title": title,
+                "summary": summary,
+                "url": url
+            })
+            time.sleep(1)  # Optional: prevent immediate burst
 
     return result
+  # Optional: control request burst rate
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", port=8000, reload=True)
+    return result
