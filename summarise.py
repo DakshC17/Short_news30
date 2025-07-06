@@ -17,20 +17,28 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-def generate_summary(text: str, model="llama3-70b-8192") -> str:
-    prompt = f"Summarize the following news article in no more than 30 words:**\n\n{text}**"
+def generate_summary(text: str, model="qwen/qwen3-32b") -> str:
+    prompt = (
+        "Summarize the following news article in no more than 30 words. "
+        "IMPORTANT: Only return the summary. Do NOT include any reasoning, thinking steps, or markdown. Just the plain summary text.\n\n"
+        f"{text}"
+    )
 
     data = {
         "model": model,
         "messages": [
-            {"role": "system", "content": "You are a helpful assistant that summarizes news articles in 30 words."},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.5
     }
 
     response = requests.post(API_URL, headers=HEADERS, json=data)
-    response.raise_for_status()  # This line will raise 401 if the API key is invalid
+    response.raise_for_status()
 
     summary = response.json()["choices"][0]["message"]["content"]
+    
+    # Post-clean the summary to remove any <think> tags if still present
+    if "<think>" in summary:
+        summary = summary.split("</think>")[-1].strip()
+
     return summary.strip()

@@ -59,3 +59,4 @@ def get_summarised_news():
   # Optional: control request burst rate
 
     return result
+    
