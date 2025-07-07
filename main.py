@@ -47,6 +47,15 @@ def get_summarised_news():
             url = item.get("url", "")
             image = item.get("image", None)
 
+
+
+##NEED  TO CHANGE THE ABOVE LOOP FOR GETTING MORE THAN ONE NEWS
+
+
+##NEW MODEL COULD BE REQUIRED AS SUMMARISER AINT WORKING PROPERLY
+
+
+#-------------------------------------------------------------------------------------------------------------------------------
             summary = safe_generate_summary(text)
             result[section].append({
                 "title": title,
