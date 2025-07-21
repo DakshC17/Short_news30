@@ -41,31 +41,22 @@ def get_summarised_news():
 
     for section in ["national", "international"]:
         if raw_news.get(section):
-            item = raw_news[section][0]  # Take only the first news article
-            title = item.get("title", "")
-            text = item.get("text", title)  # Fallback to title if text is missing
-            url = item.get("url", "")
-            image = item.get("image", None)
+            articles = raw_news[section][:10]  # 🔥 Fetch top 10 articles
+            for item in articles:
+                title = item.get("title", "")
+                text = item.get("text", title)  # Fallback to title if text is missing
+                url = item.get("url", "")
+                image = item.get("image", None)
 
-
-
-##NEED  TO CHANGE THE ABOVE LOOP FOR GETTING MORE THAN ONE NEWS
-
-
-##NEW MODEL COULD BE REQUIRED AS SUMMARISER AINT WORKING PROPERLY
-
-
-#-------------------------------------------------------------------------------------------------------------------------------
-            summary = safe_generate_summary(text)
-            result[section].append({
-                "title": title,
-                "summary": summary,
-                "url": url
-            })
-            time.sleep(1)  # Optional: prevent immediate burst
+                summary = safe_generate_summary(text)
+                result[section].append({
+                    "title": title,
+                    "summary": summary,
+                    "url": url
+                })
+                time.sleep(1)  # Avoid hitting rate limits
 
     return result
-  # Optional: control request burst rate
-
-    return result
-    
+@app.get("/ping")
+def ping():
+    return {"message": "pong"}
