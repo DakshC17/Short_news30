@@ -7,7 +7,7 @@ import requests
 
 app = FastAPI()
 
-# Allow CORS (for frontend access)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Retry wrapper to handle rate limits (429) with exponential backoff
+
 def safe_generate_summary(text, retries=3):
     for attempt in range(retries):
         try:
@@ -35,16 +35,16 @@ def safe_generate_summary(text, retries=3):
 
 @app.get("/news")
 def get_summarised_news():
-    raw_news = get_news_articles()  # From pygooglenews version
+    raw_news = get_news_articles()  
 
     result = {"national": [], "international": []}
 
     for section in ["national", "international"]:
         if raw_news.get(section):
-            articles = raw_news[section][:10]  # 🔥 Fetch top 10 articles
+            articles = raw_news[section][:10]  
             for item in articles:
                 title = item.get("title", "")
-                text = item.get("text", title)  # Fallback to title if text is missing
+                text = item.get("text", title)  
                 url = item.get("url", "")
                 image = item.get("image", None)
 
@@ -54,7 +54,7 @@ def get_summarised_news():
                     "summary": summary,
                     "url": url
                 })
-                time.sleep(1)  # Avoid hitting rate limits
+                time.sleep(1)  
 
     return result
 @app.get("/ping")
