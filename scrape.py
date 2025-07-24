@@ -18,7 +18,7 @@ def fetch_articles(section: str, limit=10):
     for entry in feed['entries'][:limit]:
         articles.append({
             "title": entry.get("title", "No Title"),
-            "text": entry.get("summary", entry.get("title", "")),  # We'll summarize this
+            "text": entry.get("summary", entry.get("title", "")),  
             "url": entry.get("link", ""),
             
         })
