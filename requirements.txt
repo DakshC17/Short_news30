@@ -3,3 +3,8 @@ uvicorn[standard]
 newspaper3k
 requests
 python-dotenv
+
+beautifulsoup4
+lxml
+pydantic
+httpx   
