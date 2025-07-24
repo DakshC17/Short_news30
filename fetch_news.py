@@ -29,7 +29,7 @@ def fetch_with_selenium(url):
     return page_source
 
 def is_valid_article_url(href):
-    # Include /news/, date-based patterns etc.
+    
     return bool(re.search(r"/(news|article|story)/", href)) or bool(re.search(r"/\d{4}/\d{2}/\d{2}/", href))
 
 def extract_full_article_text(article_url):
@@ -69,7 +69,7 @@ def extract_articles_from_html(html, base_url):
             "title": title,
             "text": article_text,
             "url": full_url,
-            "top_image": None  # can be improved later
+            "top_image": None  
         })
 
         if len(articles) >= 5:
@@ -98,3 +98,5 @@ def get_news_articles(national_urls, international_urls):
         "national": national[:20],
         "international": international[:20]
     }
+
+
