@@ -37,5 +37,5 @@ def generate_summary(text: str, model="qwen/qwen3-14b:free") -> str:
 
     summary = response.json()["choices"][0]["message"]["content"]
 
-    # Optional: clean up if model adds extra text
+   
     return summary.strip()
