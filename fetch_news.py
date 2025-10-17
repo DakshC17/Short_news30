@@ -80,7 +80,7 @@ def extract_articles_from_html(html, base_url):
 def scrape_site(url):
     html = fetch_with_requests(url)
     if not html:
-        print(f"[⚠️ Falling back to Selenium] {url}")
+        print(f"[ Falling back to Selenium] {url}")
         html = fetch_with_selenium(url)
     return extract_articles_from_html(html, url)
 
@@ -88,11 +88,11 @@ def get_news_articles(national_urls, international_urls):
     national = []
     international = []
 
-    for url in national_urls:
-        national.extend(scrape_site(url))
+    # for url in national_urls:
+    #     national.extend(scrape_site(url))
 
-    for url in international_urls:
-        international.extend(scrape_site(url))
+    # for url in international_urls:
+    #     international.extend(scrape_site(url))
 
     return {
         "national": national[:20],
