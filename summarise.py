@@ -2,14 +2,11 @@ import os
 import requests
 from dotenv import load_dotenv
 
-# Load .env file
+
 load_dotenv()
 
 
-# Using Open router 
-#Earlier checked the groq but the response i am geting isnt the news its coming timedout 
-# we will try with the open ai api key
-# Prompting mustr be the key thing
+
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 if not OPENROUTER_API_KEY:
