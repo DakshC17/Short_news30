@@ -30,4 +30,4 @@ def get_news_articles():
         "national": fetch_articles("nation", limit=10),
         "international": fetch_articles("world", limit=10)
     }
-# fetching the news from py news getting the news through RSS feed we can try different pre existing api 
+
