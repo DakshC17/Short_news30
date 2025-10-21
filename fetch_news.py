@@ -91,8 +91,8 @@ def get_news_articles(national_urls, international_urls):
     for url in national_urls:
         national.extend(scrape_site(url))
 
-    # for url in international_urls:
-    #     international.extend(scrape_site(url))
+    for url in international_urls:
+        international.extend(scrape_site(url))
 
     return {
         "national": national[:20],
