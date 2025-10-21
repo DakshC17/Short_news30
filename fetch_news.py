@@ -31,7 +31,7 @@ def fetch_with_selenium(url):
 def is_valid_article_url(href):
     
     return bool(re.search(r"/(news|article|story)/", href)) or bool(re.search(r"/\d{4}/\d{2}/\d{2}/", href))
-
+        ## checking for the valid url if not will throw the exc
 def extract_full_article_text(article_url):
     html = fetch_with_requests(article_url)
     if not html:
