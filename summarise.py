@@ -28,6 +28,9 @@ def generate_summary(text: str, model="qwen/qwen3-14b:free") -> str:   ##Using t
         f"{text}"
     )
 
+
+    #PROMPT NEEDS A GENUNE ENHANCEMENT 
+
     data = {
         "model": model,
         "messages": [
