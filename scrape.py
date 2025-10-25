@@ -23,6 +23,8 @@ def fetch_articles(section: str, limit=10):
             
         })
 
+
+    
     return articles
 
 def get_news_articles():
