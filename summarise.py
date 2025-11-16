@@ -19,7 +19,7 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-def generate_summary(text: str, model="qwen/qwen3-14b:free") -> str:   ##Using the quen model for now need to change for it 
+def generate_summary(text: str, model="qwen/qwen3-14b:free") -> str:  
     prompt = (
         "Summarize the following news article in no more than 30 words. "
         "IMPORTANT: Only return the summary. Do NOT include any reasoning, thinking steps, or markdown. Just the plain summary text.\n\n"
