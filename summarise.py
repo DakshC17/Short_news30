@@ -11,7 +11,6 @@ if not OPENROUTER_API_KEY:
     raise ValueError(" OPENROUTER_API_KEY is missing. Make sure it's defined in your .env file.")
 
 
-
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 HEADERS = {
