@@ -4,10 +4,7 @@ from summarise import generate_summary
 from scrape import get_news_articles
 import time
 import requests
-
 app = FastAPI()
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,8 +12,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 def safe_generate_summary(text, retries=3):
     for attempt in range(retries):
         try:
