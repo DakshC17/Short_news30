@@ -8,13 +8,13 @@ import time
 
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
-def fetch_with_requests(url):
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
-        response.raise_for_status()
-        return response.text
-    except:
-        return None
+# def fetch_with_requests(url):
+#     try:
+#         response = requests.get(url, headers=HEADERS, timeout=10)
+#         response.raise_for_status()
+#         return response.text
+#     except:
+#         return None
 
 def fetch_with_selenium(url):
     options = Options()
