@@ -2,7 +2,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.options import Options
 from urllib.parse import urljoin
 import time
 
@@ -16,17 +16,21 @@ def fetch_with_requests(url):
     except:
         return None
 
-def fetch_with_selenium(url):
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(options=options)
-    driver.get(url)
-    time.sleep(5)
-    page_source = driver.page_source
-    driver.quit()
-    return page_source
+# def fetch_with_selenium(url):
+#     options = Options()
+#     options.add_argument("--headless")
+#     options.add_argument("--no-sandbox")
+#     options.add_argument("--disable-dev-shm-usage")
+#     driver = webdriver.Chrome(options=options)
+#     driver.get(url)
+#     time.sleep(5)
+#     page_source = driver.page_source
+#     driver.quit()
+#     return page_source
+
+
+
+#skipping the selenium part for testing for now
 
 def is_valid_article_url(href):
     
