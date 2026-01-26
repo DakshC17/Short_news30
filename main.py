@@ -18,11 +18,11 @@ def safe_generate_summary(text, retries=3):
     for attempt in range(retries):
         try:
             return generate_summary(text)
-        # except requests.exceptions.HTTPError as e:
-        #     if e.response.status_code == 429:
-        #         wait_time = 2 * (attempt + 1)
-        #         print(f"[Rate Limit] Retry {attempt + 1}/{retries} after {wait_time}s")
-        #         time.sleep(wait_time)
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:
+                wait_time = 2 * (attempt + 1)
+                print(f"[Rate Limit] Retry {attempt + 1}/{retries} after {wait_time}s")
+                time.sleep(wait_time)
             else:
                 raise
         except Exception as e:
@@ -42,7 +42,7 @@ def get_summarised_news():
             for item in articles:
                 text = item.get("text", title)  
                 url = item.get("url", "")
-                image = item.get("image", None)
+                # image = item.get("image", None)
                 url_new = item.get("url","")
 
                 summary = safe_generate_summary(text)
