@@ -8,6 +8,8 @@ import time
 
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
+#headers
+
 def fetch_with_requests(url):
     try:
         response = requests.get(url, headers=HEADERS, timeout=10)
