@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-### ADded the cors again
+
 def safe_generate_summary(text, retries=3):
     for attempt in range(retries):
         try:
